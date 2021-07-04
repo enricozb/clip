@@ -1,0 +1,12 @@
+[
+  {
+    name: "xsel",
+    get: ["xsel", "-b", "-o"],
+    set: ["xsel", "-b"]
+  },
+  {
+    name: "file",
+    get: ["cat", "/tmp/clipboard"],
+    set: ["tee", "/tmp/clipboard"],
+  }
+]
