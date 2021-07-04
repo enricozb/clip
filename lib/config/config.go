@@ -1,6 +1,7 @@
 package config
 
 import (
+	_ "embed"
 	"encoding/json"
 	"fmt"
 	"os/exec"
@@ -9,7 +10,7 @@ import (
 //go:embed defaults.json
 var defaults []byte
 
-var entries []ClipboardEntry
+var Clipboards []ClipboardEntry
 
 type ClipboardEntry struct {
 	Name   string   `json:"name"`
@@ -18,7 +19,7 @@ type ClipboardEntry struct {
 }
 
 func init() {
-	if err := json.Unmarshal(defaults, &entries); err != nil {
+	if err := json.Unmarshal(defaults, &Clipboards); err != nil {
 		panic(fmt.Errorf("unmarshal: %v", err))
 	}
 }
