@@ -7,33 +7,16 @@ import (
 
 	"github.com/mattn/go-isatty"
 
-	"github.com/enricozb/clip/lib/config"
+	"github.com/enricozb/clip/lib/clip"
 )
 
-func getClipboardContent() []byte {
-	if !isatty.IsTerminal(os.Stdin.Fd()) {
-		content, _ := io.ReadAll(os.Stdin)
-		return content
-	}
-
-	for _, clipboard := range config.Clipboards {
-		if content, err := clipboard.Get(); err == nil {
-			return content
-		}
-	}
-
-	return nil
-}
-
-func syncClipboardContent(content []byte) {
-	// update clipboards
-	for _, clipboard := range config.Clipboards {
-		clipboard.Set(content)
-	}
-}
-
 func main() {
-	content := getClipboardContent()
+	var content []byte
+	if !isatty.IsTerminal(os.Stdin.Fd()) {
+		content, _ = io.ReadAll(os.Stdin)
+	} else {
+		content = clip.Get()
+	}
 
 	if _, err := os.Stdout.Write(content); err != nil {
 		panic(fmt.Errorf("stdout write: %v", err))
@@ -42,5 +25,5 @@ func main() {
 		panic(fmt.Errorf("stdout close: %v", err))
 	}
 
-	syncClipboardContent(content)
+	clip.Sync(content)
 }
