@@ -5,14 +5,14 @@ import (
 	"io"
 	"os"
 
-	"github.com/mattn/go-isatty"
-
 	"github.com/enricozb/clip/lib/clip"
 )
 
 func main() {
+	fi, _ := os.Stdin.Stat()
+
 	var content []byte
-	if !isatty.IsTerminal(os.Stdin.Fd()) {
+	if (fi.Mode() & os.ModeCharDevice) == 0 {
 		content, _ = io.ReadAll(os.Stdin)
 	} else {
 		content = clip.Get()
