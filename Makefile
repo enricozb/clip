@@ -1,5 +1,7 @@
 GO_FILES := $(shell find -type f -name '*.go')
 
+.PHONY: clean
+
 all: clip daemon
 
 clip: $(GO_FILES)
