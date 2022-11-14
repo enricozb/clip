@@ -8,5 +8,9 @@
     "name": "file",
     "get": ["cat", "/tmp/clipboard"],
     "set": ["tee", "/tmp/clipboard"]
+  },
+  {
+    "name": "osc52",
+    "set": ["bash", "-c", "printf '\\e]52;;%s\\a' $(base64 | tr -d '\\n') >/dev/tty"]
   }
 ]

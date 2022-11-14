@@ -7,6 +7,10 @@ import (
 // Get returns the first successful clipboard retrieval from the configured clipboards.
 func Get() []byte {
 	for _, clipboard := range config.Clipboards {
+		if clipboard.GetCmd == nil {
+			continue
+		}
+
 		if content, err := clipboard.Get(); err == nil {
 			return content
 		}
