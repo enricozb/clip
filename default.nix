@@ -2,7 +2,7 @@
 
 pkgs.buildGoModule rec {
   pname = "clip";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = pkgs.lib.cleanSource ./.;
   vendorSha256 = "1y8flix4wd24f4qh56vlfizgj40vpzsrxfaq06cr3bh9d74waccr";
